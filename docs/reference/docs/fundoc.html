@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate documentation from R scripts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for fundoc {fundoc}"><tr><td>fundoc {fundoc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate documentation from R scripts</h2>
+
+<h3>Description</h3>
+
+<p>Generate documentation from R scripts
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fundoc(
+  scripts = ".",
+  out_dir = "docs",
+  proj_name = NULL,
+  proj_title = NULL,
+  version = NULL,
+  quiet = FALSE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>scripts</code></td>
+<td>
+<p>A character vector of paths. The vector can be a mix of paths
+of either (1) directory paths, (2) file paths, or (3) glob
+expressions to R scripts. Note that (2) and (3) must end with
+<code>.R</code> or <code>.r</code>. See <code><a href="expand_Rscript.html">expand_Rscript()</a></code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>proj_name</code></td>
+<td>
+<p>Character. The name of the project. Must conform to
+conventions of naming R packages. To check whether a name is valid,
+refer to <a href="https://github.com/r-lib/available">https://github.com/r-lib/available</a>. Defaults to <code>NULL</code>,
+which generates the name <code style="white-space: pre;">Foo.{YYYY.MM.DD}</code> according to the current
+date.</p>
+</td></tr>
+<tr valign="top"><td><code>proj_title</code></td>
+<td>
+<p>Character. A one-sentence title of what the project does.
+Defaults to <code>NULL</code>, which generates a title of the format:
+<code style="white-space: pre;">Function documentation of project {proj_name}</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>version</code></td>
+<td>
+<p>Character. Version number of the project. Defaults to
+<code>"0.0.1"</code> when set to <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>Logical. Whether to hide messages from the subprocess compiling
+the function documentation. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>outdir</code></td>
+<td>
+<p>Path to the generated documentation directory.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-r">pkg = system.file(package=&quot;fundoc&quot;)
+(scripts = file.path(pkg, &quot;*.R&quot;))
+</code></pre>
+<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/*.R&quot;
+</code></pre>
+<pre><code class="language-r">## Not run: 
+##D fundoc(scripts,
+##D        out_dir = &quot;docs/reference/docs&quot;,
+##D        proj_name = &quot;fundoc&quot;,
+##D        proj_title = &quot;Quick and Dirty Function Documentation&quot;)
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>fundoc</em> version 0.0.1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>
