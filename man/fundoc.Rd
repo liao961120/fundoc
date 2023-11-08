@@ -14,10 +14,10 @@ fundoc(
 )
 }
 \arguments{
-\item{scripts}{A character vector of paths. The vector can be a mix of paths
-of either (1) directory paths, (2) file paths, or (3) glob
-expressions to R scripts. Note that (2) and (3) must end with
-\code{.R} or \code{.r}. See \code{\link[=expand_Rscript]{expand_Rscript()}} for details.}
+\item{scripts}{A character vector of paths. The vector can be a mix of either
+(1) directory paths, (2) file paths, or (3) glob expressions to
+R scripts. Note that (2) and (3) must end with \code{.R} or \code{.r}.
+See \code{\link[=expand_Rscript]{expand_Rscript()}} for details.}
 
 \item{proj_name}{Character. The name of the project. Must conform to
 conventions of naming R packages. To check whether a name is valid,

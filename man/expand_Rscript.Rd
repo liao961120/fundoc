@@ -7,10 +7,10 @@
 expand_Rscript(fps, debug = F)
 }
 \arguments{
-\item{fps}{A character vector of paths. The vector can be a mix of paths
-of either (1) directory paths, (2) file paths, or (3) glob
-expressions to R scripts. Note that (2) and (3) must end with
-\code{.R} or \code{.r}.}
+\item{fps}{A character vector of paths. The vector can be a mix of either
+(1) directory paths, (2) file paths, or (3) glob expressions to
+R scripts. Note that (2) and (3) must end with \code{.R} or \code{.r}.
+See \code{\link[=expand_Rscript]{expand_Rscript()}} for details.}
 
 \item{debug}{Logical. Whether to return results as a list with \code{fps}
 as names.}

@@ -4,8 +4,8 @@ Version: 0.0.1
 Authors@R: 
     person("Yongfu", "Liao", , "liao961120@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-1814-2993"))
-Description: Generate roxygen documentation from R scripts with evaluated 
-  examples.
+Description: Generate function documentation along with evaluated examples 
+  from R scripts documented in Roxygen comments
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

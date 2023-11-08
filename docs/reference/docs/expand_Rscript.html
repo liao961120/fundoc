@@ -31,10 +31,10 @@ expand_Rscript(fps, debug = F)
 <table summary="R argblock">
 <tr valign="top"><td><code>fps</code></td>
 <td>
-<p>A character vector of paths. The vector can be a mix of paths
-of either (1) directory paths, (2) file paths, or (3) glob
-expressions to R scripts. Note that (2) and (3) must end with
-<code>.R</code> or <code>.r</code>.</p>
+<p>A character vector of paths. The vector can be a mix of either
+(1) directory paths, (2) file paths, or (3) glob expressions to
+R scripts. Note that (2) and (3) must end with <code>.R</code> or <code>.r</code>.
+See <code><a href="expand_Rscript.html">expand_Rscript()</a></code> for details.</p>
 </td></tr>
 <tr valign="top"><td><code>debug</code></td>
 <td>
@@ -56,7 +56,7 @@ as names.</p>
 dir_ = system.file(package = &quot;fundoc&quot;)
 (a_file = file.path(dir_, &quot;foo.R&quot;))
 </code></pre>
-<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/foo.R&quot;
+<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpoZVQ9b/INST/fundoc/foo.R&quot;
 </code></pre>
 <pre><code class="language-r">expand_Rscript(a_file)
 </code></pre>
@@ -64,7 +64,7 @@ dir_ = system.file(package = &quot;fundoc&quot;)
 </code></pre>
 <pre><code class="language-r">(a_dir = file.path(dir_, &quot;R&quot;))
 </code></pre>
-<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/R&quot;
+<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpoZVQ9b/INST/fundoc/R&quot;
 </code></pre>
 <pre><code class="language-r">expand_Rscript(a_dir)
 </code></pre>
@@ -72,7 +72,7 @@ dir_ = system.file(package = &quot;fundoc&quot;)
 </code></pre>
 <pre><code class="language-r">(a_glob = file.path(dir_, &quot;*&quot;, &quot;*.R&quot;))
 </code></pre>
-<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/*/*.R&quot;
+<pre><code>## [1] &quot;C:/Users/rd/AppData/Local/Temp/RtmpoZVQ9b/INST/fundoc/*/*.R&quot;
 </code></pre>
 <pre><code class="language-r">expand_Rscript(a_glob)
 </code></pre>
@@ -85,13 +85,13 @@ expand_Rscript( c(a_file, a_dir, a_glob) )
 </code></pre>
 <pre><code class="language-r">expand_Rscript( c(a_file, a_dir, a_glob), debug = T )
 </code></pre>
-<pre><code>## $`C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/foo.R`
+<pre><code>## $`C:/Users/rd/AppData/Local/Temp/RtmpoZVQ9b/INST/fundoc/foo.R`
 ## NULL
 ## 
-## $`C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/R`
+## $`C:/Users/rd/AppData/Local/Temp/RtmpoZVQ9b/INST/fundoc/R`
 ## character(0)
 ## 
-## $`C:/Users/rd/AppData/Local/Temp/RtmpEPXiaG/INST/fundoc/*/*.R`
+## $`C:/Users/rd/AppData/Local/Temp/RtmpoZVQ9b/INST/fundoc/*/*.R`
 ## character(0)
 </code></pre>
 

@@ -43,10 +43,10 @@ parse_description_in_script = function(fp) {
 
 #' File path handler
 #'
-#' @param fps A character vector of paths. The vector can be a mix of paths
-#'        of either (1) directory paths, (2) file paths, or (3) glob
-#'        expressions to R scripts. Note that (2) and (3) must end with
-#'        `.R` or `.r`.
+#' @param fps A character vector of paths. The vector can be a mix of either
+#'        (1) directory paths, (2) file paths, or (3) glob expressions to
+#'        R scripts. Note that (2) and (3) must end with `.R` or `.r`.
+#'        See [expand_Rscript()] for details.
 #' @param debug Logical. Whether to return results as a list with `fps`
 #'        as names.
 #' @return A character vector or a list.

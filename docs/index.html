@@ -5,16 +5,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Generate roxygen documentation from R scripts with evaluated 
-  examples.">
+<meta name="description" content="Generate function documentation along with evaluated examples 
+  from R scripts documented in Roxygen comments">
 <title>Quick and dirty function documentation • fundoc</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Quick and dirty function documentation">
-<meta property="og:description" content="Generate roxygen documentation from R scripts with evaluated 
-  examples.">
+<meta property="og:description" content="Generate function documentation along with evaluated examples 
+  from R scripts documented in Roxygen comments">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -58,14 +58,74 @@
 <!-- 
 To Do: add documentation for in-file DESCRIPTION
 -->
-<p>A package to generate function documentation along with evaluated example code from a list of R scripts documented with Roxygen comments.</p>
-<p>The function documentation generated from the <a href="https://github.com/liao961120/fundoc" class="external-link">R files</a> of this package can be found <a href="https://yongfu.name/fundoc/reference/docs" class="external-link">here</a>. To build the documentation, clone this repo, set it as the working directory, and execute the code below in R:</p>
+<p><code>fundoc</code> generates function documentation from R scripts that are NOT structured as an R package.</p>
+<p>R packages provides a fantastic framework to document one’s work. In reality, however, many R users are unfamiliar with the highly technical workflow of developing R packages. This package tries to bridge the technical gap by exposing the benefits of <a href="https://roxygen2.r-lib.org" class="external-link">roxygen2</a> documentation to individual R scripts. The purpose is not to provide a perfect tool but rather a simple enough tool to get started with documenting scripts. There is no need to worry about structuring the R scripts into a package. Stick to your existing workflow, document the functions, and let <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> worry about generating the HTML documentation website. The only prerequisite is to learn the <a href="https://r-pkgs.org/man.html#roxygen2-basics" class="external-link">roxygen2 basics</a>.</p>
+<div class="section level3">
+<h3 id="an-example">An Example<a class="anchor" aria-label="anchor" href="#an-example"></a>
+</h3>
+<p>An example of function documentation generated from the <a href="https://github.com/liao961120/fundoc" class="external-link">R files</a> of <code>fundoc</code> can be found <a href="https://yongfu.name/fundoc/reference/docs" class="external-link">here</a>. To build the documentation, clone this repo, set it as the working directory, and execute the code below in R:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fundoc</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/fundoc.html">fundoc</a></span><span class="op">(</span><span class="st">"R"</span>,</span>
 <span>       out_dir <span class="op">=</span> <span class="st">"docs/reference/docs"</span>,</span>
 <span>       proj_name <span class="op">=</span> <span class="st">"fundoc"</span>,</span>
 <span>       proj_title <span class="op">=</span> <span class="st">"Quick and Dirty Function Documentation"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h3>
+<p>Many functions written for data analyses or works other than package development are poorly documented. One of the reasons may be the lack of a framework (and associated tools) for writing documentation outside the world of package development. In addition, many R users are simply unaware of the possibility of turning one’s work into an R package to enhance reproducibility by leveraging the documentation and testing framework provided by the <a href="https://devtools.r-lib.org" class="external-link">devtools</a> ecosystem.</p>
+<p>Nonetheless, documentation is still of great importance for works besides package development. <code>fundoc</code> leverages the conventions of the <code>devtools</code> ecosystem to generate documentation. It is basically a wrapper around <code><a href="https://usethis.r-lib.org/reference/create_package.html" class="external-link">usethis::create_package()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/knit_rd.html" class="external-link">knitr::knit_rd()</a></code> to set up a temporary package template for generating an HTML documentation website. In doing so, the fuss of automatically generating the documentation pages is abstracted away, and users could focus on documenting their individual R scripts in roxygen2 comments.</p>
+<p>Note that since <code>fundoc</code> utilizes the devtools framework, the logic of writing and documenting functions in R scripts must be consistent with that of package development. This may conflict with users’ existing habits of organizing their scripts (e.g., mixing function definitions with function calls in the same script or sourcing external scripts). Yet I would suggest users adjust accordingly to the package development conventions since there is a long-term benefit of doing so if you plan to stick to R. Understanding the workflow of package development is a must for one to become a serious R user.</p>
+</div>
+<div class="section level3">
+<h3 id="tips-to-reduce-hassles-with-roxygen-documentation">Tips to reduce hassles with roxygen documentation<a class="anchor" aria-label="anchor" href="#tips-to-reduce-hassles-with-roxygen-documentation"></a>
+</h3>
+<p>Below I provide tips that may help users bypass obstacles they can run into when documenting R scripts without the knowledge of the package development workflow.</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Classify scripts into two types</p>
+<ul>
+<li>Type-I scripts for function definition</li>
+<li>Type-II scripts (or R Markdown) for analyses</li>
+</ul>
+</li>
+<li>
+<p>Define and document (with roxygen2 comments) all the functions in Type-I scripts</p>
+<p>Do not source external scripts in these Type-I scripts. Functions defined in any of the Type-I scripts are available to all Type-I scripts. In fact, you can conceive these Type-I scripts as concatenating to form a single large script—you do not need to worry about the dependencies between the defined functions when sourcing this script into the R console.</p>
+</li>
+<li>
+<p>The previous tip suggests that in your analysis script/Rmd, you would have to import all the functions from the Type-I scripts by sourcing them all at the beginning, such as the R markdown example below:</p>
+<pre class="rmd"><code>## Analysis
+
+```{r}
+# Import Type-I scripts
+source("funcDef1.R")
+source("funcDef2.R")
+source("funcDef3.R")
+```
+
+Blah blah blah
+
+```{r}
+# Some analysis code
+```</code></pre>
+</li>
+<li>
+<p>Include an <code>@examples</code> tag for EVERY function</p>
+<p>When documenting the functions in Type-I scripts, you might want to include an <code>@examples</code> tag for each function. This would allow you to demonstrate how to use the function in verbatim code form. <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> would help you execute the code in the examples to record and insert the output in the generated documentation website. This amounts to the most rudimentary form of testing functions.</p>
+</li>
+<li>
+<p>Include an <code>@export</code> tag for EVERY function</p>
+<p>For self-defined functions to run properly in the <code>@examples</code>, you would need to use the <code>pkg:::func()</code> notation if the function documentation does not have an <code>@export</code> tag. Understanding this requires technical details of package development. Just remember to add an <code>@export</code> tag for every function to keep things simple.</p>
+</li>
+<li><p>The workflow recommended here may force users to pack lots of code into functions. If you use <code>tidyverse</code> a lot, you may find the article <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html" class="external-link">Programming with dplyr</a> helpful.</p></li>
+</ol>
+<!--
+In-script DESCRIPTION
+---------------------
+-->
+</div>
 </div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>

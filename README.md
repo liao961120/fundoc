@@ -5,9 +5,24 @@ Quick and Dirty Function Documentation
 To Do: add documentation for in-file DESCRIPTION
 -->
 
-A package to generate function documentation along with evaluated example code from a list of R scripts documented with Roxygen comments. 
+`fundoc` generates function documentation from R scripts that are NOT structured as an R package. 
 
-The function documentation generated from the [R files][src] of this package can be found [here][doc]. To build the documentation, clone this repo, set it as the working directory, and execute the code below in R:
+R packages provides a fantastic framework to document one's work. In reality, however, many R users
+are unfamiliar with the highly technical workflow of developing R packages.
+This package tries to bridge the technical gap by exposing the benefits
+of [roxygen2](https://roxygen2.r-lib.org) documentation to individual R
+scripts. The purpose is not to provide a perfect tool but rather a
+simple enough tool to get started with documenting scripts. There
+is no need to worry about structuring the R scripts into a package.
+Stick to your existing workflow, document the functions, and let
+`fundoc::fundoc()` worry about generating the HTML documentation website.
+The only prerequisite is to learn the 
+[roxygen2 basics](https://r-pkgs.org/man.html#roxygen2-basics).
+
+
+### An Example
+
+An example of function documentation generated from the [R files][src] of `fundoc` can be found [here][doc]. To build the documentation, clone this repo, set it as the working directory, and execute the code below in R:
 
 ```r
 library(fundoc)
@@ -19,3 +34,96 @@ fundoc("R",
 
 [src]: https://github.com/liao961120/fundoc
 [doc]: https://yongfu.name/fundoc/reference/docs
+
+
+### Motivation
+
+Many functions written for data analyses or works other than
+package development are poorly documented. One of the reasons may
+be the lack of a framework (and associated tools) for writing documentation
+outside the world of package development. In addition, many R users are
+simply unaware of the possibility of turning one's work into an R package
+to enhance reproducibility by leveraging the documentation and testing
+framework provided by the [devtools](https://devtools.r-lib.org) ecosystem.
+
+Nonetheless, documentation is still of great importance for works besides
+package development. `fundoc` leverages the conventions of the `devtools`
+ecosystem to generate documentation. It is basically a wrapper around
+`usethis::create_package()` and `knitr::knit_rd()` to set up a temporary
+package template for generating an HTML documentation website. In doing so,
+the fuss of automatically generating the documentation pages is abstracted
+away, and users could focus on documenting their individual R scripts in
+roxygen2 comments.
+
+Note that since `fundoc` utilizes the devtools framework, the logic of
+writing and documenting functions in R scripts must be consistent with
+that of package development. This may conflict with users' existing
+habits of organizing their scripts (e.g., mixing function definitions with
+function calls in the same script or sourcing external scripts). Yet I would
+suggest users adjust accordingly to the package development conventions
+since there is a long-term benefit of doing so if you plan to stick to R.
+Understanding the workflow of package development is a must for one to become a
+serious R user.
+
+
+### Tips to reduce hassles with roxygen documentation
+
+Below I provide tips that may help users bypass obstacles they can run
+into when documenting R scripts without the knowledge of the package
+development workflow.
+
+1. Classify scripts into two types
+   - Type-I scripts for function definition
+   - Type-II scripts (or R Markdown) for analyses
+
+2. Define and document (with roxygen2 comments) all the functions in Type-I scripts
+   
+   Do not source external scripts in these Type-I scripts.
+   Functions defined in any of the Type-I scripts are available to all
+   Type-I scripts. In fact, you can conceive these Type-I scripts
+   as concatenating to form a single large script---you do not need to worry about the dependencies between the defined functions when sourcing this script into the R console.
+
+3. The previous tip suggests that in your analysis script/Rmd, you
+   would have to import all the functions from the Type-I scripts by
+   sourcing them all at the beginning, such as the R markdown example below:
+
+   ````rmd
+   ## Analysis
+
+   ```{r}
+   # Import Type-I scripts
+   source("funcDef1.R")
+   source("funcDef2.R")
+   source("funcDef3.R")
+   ```
+
+   Blah blah blah
+
+   ```{r}
+   # Some analysis code
+   ```
+   ````
+
+4. Include an `@examples` tag for EVERY function
+   
+   When documenting the functions in Type-I scripts, you might want to
+   include an `@examples` tag for each function. This would allow
+   you to demonstrate how to use the function in verbatim code form.
+   `fundoc::fundoc()` would help you execute the code in the examples
+   to record and insert the output in the generated documentation website.
+   This amounts to the most rudimentary form of testing functions.
+
+5. Include an `@export` tag for EVERY function
+   
+   For self-defined functions to run properly in the `@examples`, you would need to use the `pkg:::func()` notation if the function documentation does not have an `@export` tag. Understanding this requires technical details of package development. Just remember to add an `@export` tag for every function to keep things simple.
+
+6. The workflow recommended here may force users to pack lots of code into functions. If you use `tidyverse` a lot, you may find the article [Programming with dplyr][u] helpful.
+
+
+[u]: https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html
+
+
+<!--
+In-script DESCRIPTION
+---------------------
+-->
