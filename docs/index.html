@@ -59,7 +59,8 @@
 To Do: add documentation for in-file DESCRIPTION
 -->
 <p><code>fundoc</code> generates function documentation from R scripts that are NOT structured as an R package.</p>
-<p>R packages provides a fantastic framework to document one’s work. In reality, however, many R users are unfamiliar with the highly technical workflow of developing R packages. This package tries to bridge the technical gap by exposing the benefits of <a href="https://roxygen2.r-lib.org" class="external-link">roxygen2</a> documentation to individual R scripts. The purpose is not to provide a perfect tool but rather a simple enough tool to get started with documenting scripts. There is no need to worry about structuring the R scripts into a package. Stick to your existing workflow, document the functions, and let <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> worry about generating the HTML documentation website. The only prerequisite is to learn the <a href="https://r-pkgs.org/man.html#roxygen2-basics" class="external-link">roxygen2 basics</a>.</p>
+<p>R packages provides a fantastic framework to document one’s work. In reality, however, many R users are unfamiliar with the highly technical workflow of developing R packages.</p>
+<p>This package tries to bridge the technical gap by exposing the benefits of <a href="https://roxygen2.r-lib.org" class="external-link">roxygen2</a> documentation to individual R scripts. The purpose is not to provide a perfect tool but rather a simple enough tool to get started with documenting scripts. There is no need to worry about structuring the R scripts into a package. Stick to your existing workflow, document the functions, and let <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> worry about generating the HTML documentation. The only prerequisite is to learn the <a href="https://r-pkgs.org/man.html#roxygen2-basics" class="external-link">basics of roxygen2</a>.</p>
 <div class="section level3">
 <h3 id="an-example">An Example<a class="anchor" aria-label="anchor" href="#an-example"></a>
 </h3>
@@ -81,13 +82,13 @@ To Do: add documentation for in-file DESCRIPTION
 <div class="section level3">
 <h3 id="tips-to-reduce-hassles-with-roxygen-documentation">Tips to reduce hassles with roxygen documentation<a class="anchor" aria-label="anchor" href="#tips-to-reduce-hassles-with-roxygen-documentation"></a>
 </h3>
-<p>Below I provide tips that may help users bypass obstacles they can run into when documenting R scripts without the knowledge of the package development workflow.</p>
+<p>Below I provide some tips that may help users bypass obstacles they can run into when documenting R scripts without the knowledge of R package development.</p>
 <ol style="list-style-type: decimal">
 <li>
 <p>Classify scripts into two types</p>
 <ul>
 <li>Type-I scripts for function definition</li>
-<li>Type-II scripts (or R Markdown) for analyses</li>
+<li>Type-II scripts (or R Markdown) for analyses, communication, producing results, etc.</li>
 </ul>
 </li>
 <li>
@@ -95,7 +96,7 @@ To Do: add documentation for in-file DESCRIPTION
 <p>Do not source external scripts in these Type-I scripts. Functions defined in any of the Type-I scripts are available to all Type-I scripts. In fact, you can conceive these Type-I scripts as concatenating to form a single large script—you do not need to worry about the dependencies between the defined functions when sourcing this script into the R console.</p>
 </li>
 <li>
-<p>The previous tip suggests that in your analysis script/Rmd, you would have to import all the functions from the Type-I scripts by sourcing them all at the beginning, such as the R markdown example below:</p>
+<p>The previous tip suggests that in your Type-II scripts/Rmds, you have to import all the functions from the Type-I scripts by sourcing them all at the beginning, such as the R markdown example below:</p>
 <pre class="rmd"><code>## Analysis
 
 ```{r}
@@ -108,23 +109,51 @@ source("funcDef3.R")
 Blah blah blah
 
 ```{r}
-# Some analysis code
+# Some analysis code (may call some functions defined in Type-I scripts)
 ```</code></pre>
 </li>
 <li>
 <p>Include an <code>@examples</code> tag for EVERY function</p>
-<p>When documenting the functions in Type-I scripts, you might want to include an <code>@examples</code> tag for each function. This would allow you to demonstrate how to use the function in verbatim code form. <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> would help you execute the code in the examples to record and insert the output in the generated documentation website. This amounts to the most rudimentary form of testing functions.</p>
+<p>When documenting the functions in Type-I scripts, you might want to include an <code>@examples</code> tag for each function. This would allow you to demonstrate how to use the function in verbatim code. <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> helps you execute the code in the examples to record and insert the output in the generated HTML documentation. This amounts to the most rudimentary form of function testing.</p>
 </li>
 <li>
 <p>Include an <code>@export</code> tag for EVERY function</p>
-<p>For self-defined functions to run properly in the <code>@examples</code>, you would need to use the <code>pkg:::func()</code> notation if the function documentation does not have an <code>@export</code> tag. Understanding this requires technical details of package development. Just remember to add an <code>@export</code> tag for every function to keep things simple.</p>
+<p>For self-defined functions to run properly in the <code>@examples</code>, you need to use the <code>pkg:::func()</code> notation if the function docstring does not include an <code>@export</code> tag. Why? Understanding this requires detail knowledge of package development. For the current purpose, you can simply attach <code>@export</code> to every function to keep things simple.</p>
 </li>
-<li><p>The workflow recommended here may force users to pack lots of code into functions. If you use <code>tidyverse</code> a lot, you may find the article <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html" class="external-link">Programming with dplyr</a> helpful.</p></li>
+<li><p>The workflow recommended here forces users to pack lots of code into functions. If you use <code>tidyverse</code> a lot, you may find the article <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html" class="external-link">Programming with dplyr</a> helpful.</p></li>
 </ol>
-<!--
-In-script DESCRIPTION
----------------------
--->
+</div>
+<div class="section level2">
+<h2 id="in-file-description">In-file DESCRIPTION<a class="anchor" aria-label="anchor" href="#in-file-description"></a>
+</h2>
+<p>When calling <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code>, users can pass in a project name (<code>proj_name</code>) and a short title for the project (<code>proj_title</code>). This information appears on the generated HTML documentation. An alternative is to include a block of metadata text—following the format of the <a href="https://r-pkgs.org/description.html" class="external-link"><code>DESCRIPTION</code></a> file in R packages—at the beginning of ONE of the scripts passed in to <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code>. This way, the call to <code><a href="reference/fundoc.html">fundoc::fundoc()</a></code> becomes cleaner, and the R scripts would be self-contained with all necessary information documented.</p>
+<p>This <strong>in-file DESCRIPTION</strong> is simply the text in a DESCRIPTION file prepended with roxygen comments <code>#'</code>. The DESCRIPTION text does not have to have all fields presented as in common R packages. For the DESCRIPTION text to take effect though, include at least these fields:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>Package</code> (corresponds to <code>proj_name</code> in <code><a href="reference/fundoc.html">fundoc()</a></code>)</li>
+<li>
+<code>Title</code> (corresponds to <code>proj_title</code> in <code><a href="reference/fundoc.html">fundoc()</a></code>)</li>
+<li>
+<code>Version</code> (corresponds to <code>version</code> in <code><a href="reference/fundoc.html">fundoc()</a></code>)</li>
+</ol>
+<p>Below is an example of the in-file DESCRIPTION in <code>fundoc</code>. Remember to include <code>@DESCRIPTION</code> to mark the presence of such an in-file DESCRIPTION.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#' @DESCRIPTION</span></span>
+<span><span class="co">#' Package: fundoc</span></span>
+<span><span class="co">#' Title: A one line description shown in the generated HTML documentation</span></span>
+<span><span class="co">#' Version: 0.0.1</span></span>
+<span><span class="co">#' Authors@R: </span></span>
+<span><span class="co">#'     person("Jane", "Dow", , "jane@dow.org", role = c("aut", "cre"),</span></span>
+<span><span class="co">#'            comment = c(ORCID = "0000-0001-9999-8888"))</span></span>
+<span><span class="co">#' Description: Lorem ipsum dolor sit amet, in condimentum habitant eleifend ut</span></span>
+<span><span class="co">#'     urna ut. Leo, in sociis massa, sem sodales et in massa. </span></span>
+<span><span class="co">#' License: MIT + file LICENSE</span></span>
+<span><span class="co">#' Encoding: UTF-8</span></span>
+<span></span>
+<span><span class="co">#### R function definitions start below... ####</span></span>
+<span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># some code</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
