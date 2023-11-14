@@ -18,14 +18,25 @@
 #' @param quiet Logical. Whether to hide messages from the subprocess compiling
 #'        the function documentation. Defaults to `FALSE`.
 #' @examples
-#' pkg = system.file(package="fundoc")
-#' (scripts = file.path(pkg, "*.R"))
-#' \dontrun{
-#' fundoc(scripts,
-#'        out_dir = "docs/reference/docs",
+#' Rscript = "
+#' #' A Foo function
+#' #'
+#' #' Just an example
+#' #'
+#' #' @param x Character. Calling `foo()` prints out `x`.
+#' #' @export
+#' #' @examples
+#' #' foo('Hello World!')
+#' foo <- function(x) print(x)
+#' "
+#' tmp <- paste0(tempfile(), ".R")
+#' writeLines(Rscript, tmp)
+#'
+#' fundoc(scripts = tmp,
+#'        out_dir = "docs",
 #'        proj_name = "fundoc",
-#'        proj_title = "Quick and Dirty Function Documentation")
-#' }
+#'        proj_title = "Quick and Dirty Function Documentation",
+#'        quiet = TRUE)
 #' @export
 fundoc = function(scripts = ".",
                   out_dir = "docs",

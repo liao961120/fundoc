@@ -92,15 +92,28 @@ the function documentation. Defaults to <code>FALSE</code>.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pkg</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"fundoc"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">scripts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="st">"*.R"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C:/Users/rd/AppData/Local/Temp/Rtmpyoxil6/temp_libpathe18826921c0d/fundoc/*.R"</span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu">fundoc</span><span class="op">(</span><span class="va">scripts</span>,</span></span>
-<span class="r-in"><span>       out_dir <span class="op">=</span> <span class="st">"docs/reference/docs"</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Rscript</span> <span class="op">=</span> <span class="st">"</span></span></span>
+<span class="r-in"><span><span class="st">#' A Foo function</span></span></span>
+<span class="r-in"><span><span class="st">#'</span></span></span>
+<span class="r-in"><span><span class="st">#' Just an example</span></span></span>
+<span class="r-in"><span><span class="st">#'</span></span></span>
+<span class="r-in"><span><span class="st">#' @param x Character. Calling `foo()` prints out `x`.</span></span></span>
+<span class="r-in"><span><span class="st">#' @export</span></span></span>
+<span class="r-in"><span><span class="st">#' @examples</span></span></span>
+<span class="r-in"><span><span class="st">#' foo('Hello World!')</span></span></span>
+<span class="r-in"><span><span class="st">foo &lt;- function(x) print(x)</span></span></span>
+<span class="r-in"><span><span class="st">"</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">".R"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">Rscript</span>, <span class="va">tmp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">fundoc</span><span class="op">(</span>scripts <span class="op">=</span> <span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>       out_dir <span class="op">=</span> <span class="st">"docs"</span>,</span></span>
 <span class="r-in"><span>       proj_name <span class="op">=</span> <span class="st">"fundoc"</span>,</span></span>
-<span class="r-in"><span>       proj_title <span class="op">=</span> <span class="st">"Quick and Dirty Function Documentation"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span>       proj_title <span class="op">=</span> <span class="st">"Quick and Dirty Function Documentation"</span>,</span></span>
+<span class="r-in"><span>       quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Documenting functions in: </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   C:\Users\rd\AppData\Local\Temp\Rtmp4oYZ6V\filecfcc44234fa0.R</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Function documentation saved to C:/Users/rd/Desktop/fundoc/docs/reference/docs</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
