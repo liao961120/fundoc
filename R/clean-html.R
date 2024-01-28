@@ -1,10 +1,10 @@
 fix_links = function(fps) {
-    for ( fp in fps ) {
-        fc = xfun::read_utf8(fp)
-        fc = fix_func_ref_links(fc)
-        fc = fix_description_links(fc)
-        xfun::write_utf8(fc, fp)
+    fix_all = function(x) {
+        x = fix_func_ref_links(x)
+        x = fix_description_links(x)
+        x
     }
+    for ( fp in fps ) xfun::process_file(fp, fix_all)
 }
 
 
